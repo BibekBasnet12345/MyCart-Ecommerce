@@ -1,3 +1,4 @@
+<%@page import="com.helper.Message"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -9,53 +10,64 @@
 <%@include file="common_components/common_links.jsp" %>
 </head>
 <body>
+
 <%@include file="common_components/navbar.jsp" %>
 <div class="container" id="container">
             <div class="mycard" id="register-card">
            
                 <div class="row" id="row">
-                 <div class="col-md-2"></div>
-                        <div class="col-md-6 ">
+            
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6">
                                         <div class="myLeftCtn">
-                           
                                               <form autocomplete="off" action="RegisterServlet"  method="post" class="my form text-center" id="myregisterform">
                                                     <header>Create your account</header>
+                                                    <div id="message"></div>
                                                     <div class="form-group">
-                                                    <i class="fas fa-user"> </i>
-                                                    <input name="u_name" class="myInput"    type="text"  placeholder="username"  id="username" >
-                                                    <p id="pname"></p>
+                                                      <i  class="fas fa-user ii"> </i>
+                                                    <input name="u_name" class="myInput"    type="text"  placeholder="username"  id="username" ><br>
+                                                    <span class="danger" id="username_err" style="color:red;"> </span>
                                                      </div>
                                                        <div class="form-group">
-                                                    <i class="fas fa-envelope"> </i>
-                                                    <input name="u_email"  class="myInput"    type="email"  placeholder="Email"  id="email" >
-                                                    <p id="pmail"></p>
+                                                    <i class="fas fa-envelope ii"> </i>
+                                                    <input name="u_email"  class="myInput"    type="email"  placeholder="Email"  id="email" ><br>
+                                                    <span class="danger" id="email_err"  style="color:red;"> </span>
                                                      </div>
-                                                    <div class="form-group">
-                                                    <i class="fas fa-lock"> </i>
+                                                   <div class="form-group"  style="margin-left: -23px; ">
+                                                    <i class="fas fa-lock ii"> </i>
                                                     <input  name="u_password"  class="myInput"    type="password"  placeholder="password"  id="password">
-                                                   <p id="ppass"></p>
+                                                    <i class="far fa-eye" id="togglePassword1" style="margin-left: -40px; cursor: pointer;"></i>
+                                                     <br>
+                                                    <span class="danger" id="password_err" style="color:red;"> </span>
+                                                     </div>
+                                                     <div class="form-group "style="margin-left: -23px; ">
+                                                      <i class="fas fa-lock ii"></i>
+                                                      <input   name="u_cpassword"  class="myInput"    type="password"  placeholder="confirm password"  id="cpassword">
+                                                      <i class="far fa-eye" id="togglePassword2" style="margin-left: -40px; cursor: pointer;"></i>
+                                                      <br>
+                                                      <span class="danger" id="cpassword_err" style="color:red;"> </span>
+                                                       </div>
+                                                      <div class="form-group">
+                                                    <i class="fa fa-phone-square ii"> </i>
+                                                    <input  name="u_phone"  class="myInput"    type="text"  placeholder="phonenumber"  id="phone" ><br>
+                                                    <span class="danger" id="mobile_err" style="color:red;"> </span>
                                                      </div>
                                                       <div class="form-group">
-                                                    <i class="fa fa-phone-square"> </i>
-                                                    <input  name="u_phone"  class="myInput"    type="text"  placeholder="phonenumber"  id="phone" >
-                                                    <p id="pphone"></p>
-                                                     </div>
-                                                      <div class="form-group">
-                                                    <i class="fas fa-home"></i>
+                                                    <i class="fas fa-home ii"></i>
                                                     <input  name="u_address"  class="myInput"   type="text"  placeholder="Address"  id="address" >
-                                                     <p id="paddress"></p>
+                                                    <br>
+                                                    <span class="danger" id="address_err" style="color:red;"> </span>
                                                      </div>
                                                     <div class="form-group">
                                                    <label>
-                                                    <input id="check_1" name="check_1" type="checkbox" >
+                                                    <input id="check_1" name="check_1" type="checkbox"  required>
                                                     <small>I read  and agree to Terms and Conditions</small>
                                                      </label>
                                                        </div>
-                                                     <input  type="submit" class="butt" value="CREATE ACCOUNT" >
+                                                        <button type="submit" id="submitbtn" class="butt">CREATE ACCOUNT</button>
+                                                  <!--    <input id="submitbtn"  type="submit" class="butt" value="CREATE ACCOUNT" > -->
                                                       <input type="reset" class="buttreset " value="RESET">
                                               </form>
-                                               <div id="spin" style="display:none;" class="container text-center"> <span class="fa fa-refresh fa-4x	 fa-spin"></span><h4><i>Please Wait....</i></h4></div>
-												  
                                         </div>
                         </div>
                         <div class="col-md-4">
@@ -69,128 +81,193 @@
                                    </div>
                                 </div>
                         </div>
+                       
                 </div>
             </div>
         </div>
-        <!--  validation-->
-         <script>
-          const form=document.getElementById('myregisterform');
-            error=false;
-            form.addEventListener('submit',e=>{    //action,//
-               validateForm();
-               console.log(error)
-               if(error){
-                   e.preventDefault();
-               }
-               error=false;
-            })
-        function validateForm(){
-            var uname=document.getElementById("username").value;
-            var ugmail=document.getElementById("email").value;
-            const upass=document.getElementById("password").value;
-            var number=document.getElementById("phone").value;
-            var regxuname=/[a-z A-Z 0-1]*[$]/;
-            if(uname==""){
-                document.getElementById('pname').innerText="Please fill out this field"; 
-                document.getElementById('pname').style.color = "red";
-                document.getElementsByTagName('input')[0].style.borderColor="red";
-                error=true;
-                // return false;
+        <!--  -validation-->
+        <script>
+          $(document).ready(function () {
+            $('#username').on('input', function () {
+             checkuser();
+             });
+             $('#email').on('input', function () {
+                checkemail();
+            });
+               $('#password').on('input', function () {
+              checkpass();
+            });
+            $('#cpassword').on('input', function () {
+                checkcpass();
+            });
+            $('#phone').on('input', function () {
+                checkmobile();
+            });
+            $('#address').on('input', function () {
+                checkaddress();
+            });
+            $('#submitbtn').click(function () {
+
+              if (!checkuser() && !checkemail() && !checkmobile() && !checkpass() && !checkcpass() && !checkaddress ()) {
+            console.log("er1");
+            $("#message").html(`<div class="alert alert-danger">Please fill all required field</div>`);
             }
-            else if((!regxuname.test(uname.value)) && (uname.length<=5)){
-            	  document.getElementById('p1').innerText="your name must be atleast 5 letter"; 
-                  document.getElementById('p1').style.color = "red";
-                  document.getElementsByTagName('input')[0].style.borderColor="red";
-                  error=true;
-            }
-            var regexemail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if(ugmail==""){
-              document.getElementById('ugmail').innerText="provide the mail";
-                document.getElementById('ugmail').style.color = "red";
-                document.getElementsByTagName(' input')[1].style.borderColor="red";
-                error=true;
-            } 
-            else if(!regxemail.test(ugmail.value)){
-            	   document.getElementById('ugmail').innerText="provide the valid mail";
-                   document.getElementById('ugmail').style.color = "red";
-                   document.getElementsByTagName('input')[1].style.borderColor="red";
-                error=true;
-            }
-            var regxpass=/^[a-z A-Z 0-1]*[$]/;
-            if(upass==""){
-            	  document.getElementById('ppass').innerText="Please fill out this field"; 
-                  document.getElementById('ppass').style.color = "red";
-                  document.getElementsByTagName('input')[2].style.borderColor="red";
-               error=true;
-            }
-            else if((!regxpass.test(upass.value))&& (upass.length>=5 && upass.length<=8)){
-                document.getElementById('ppass').innerText="your password must be atleast 5 and atmost 8"; 
-                document.getElementById('ppass').style.color = "red";
-                document.getElementsByTagName('input')[2].style.borderColor="red";
-                error=true;
-            }
-            var regxnumber=/^[98][0-9]{8}$/;
-            if(number==""){
-            	  document.getElementById('pphone').innerText="please provide your phone number "; 
-                  document.getElementById('pphone').style.color = "red";
-                  document.getElementsByTagName('input')[3].style.borderColor="red";
-                  error=true;
-            }
-            else if(!regxnumber.test(number.value)) {
-            	 document.getElementById('pphone').innerText="please provide valid  phone number"; 
-                 document.getElementById('pphone').style.color = "red";
-                 document.getElementsByTagName('input')[3].style.borderColor="red";
-                 error=true;
-            }
-           error=true;
-        }
-   </script>
-   <!--this is a comment
- <script >	
-				$(document).ready(function(){
-				   console.log("loaded")
-					$("form").submit(function(event){
-						event.preventDefault();
-						let data=new FormData(this);
-						$(".butt").hide();
-						$(".buttreset").hide();
-						$("#spin").show();
-						//send to register servlet
-						 $.ajax({
-							   url:"RegisterServlet",
-							   type:'POST',
-						       data:  data	,
-						       success: function (data, textStatus,jqHXR) {
-						    	   console.log(data);
-						    	   $(".submit-btn").show();
-						    		$(".buttreset").show();
-									$("#spin").hide();
-									
-									swal({
-										  title: "Registration Successfully!!!",
-										  text:  "Login and enjoy your shopping",
-										  icon: "success",
-										  successMode: true,
-										})
-										.then((value) => {
-										window.location="Login.jsp";
-										});
-									
-						       },
-						       error: function (jqHXR,textStatus, errorThrown) {
-						    	   console.log(jqHXR);
-						    	   $(".butt").show();
-						    	   $(".buttreset").show();
-									$("#spin").hide();
-						    	   swal("SomeThing went wrong....... try again.");
-						    	     
-						       },
-						    	   processData:false ,
-						    	   contentType:false
-						   });
-				})
-				})
-				</script>
--->
+            else if (!checkuser() || !checkemail() || !checkmobile() || !checkpass() || !checkcpass() || !checkcpass()) {
+            $("#message").html(`<div class="alert alert-danger">Please fill all required field</div>`);
+            console.log("er");
+          }
+          else {
+            console.log("ok");
+            $("#message").html("");
+            var form = $('#myregisterform')[0];
+            var data = new FormData(form);
+          
+            $.ajax({
+                  url:"RegisterServlet",
+			      type:'POST',
+				 data:  data	,
+				 processData: false,
+	                contentType: false,
+	                cache: false,
+	                async: false,
+	                beforeSend: function () {
+	                    $('#submitbtn').html('<i class="fa-solid fa-spinner fa-spin"></i>');
+	                    $('#submitbtn').attr("disabled", true);
+	                    $('#submitbtn').css({ "border-radius": "50%" });
+	                },
+           success: function (data) {
+              console.log(data);
+                 swal({
+					  title: "Registration Successfully!!!",
+					  text:  "Login and enjoy your shopping",
+					  icon: "success",
+					  successMode: true,
+					})
+					.then((value) => {
+					window.location="Login.jsp";
+					});
+                     },
+                     complete: function () {
+                         setTimeout(function () {
+                             $('.myform').trigger("reset");
+                             $('#submitbtn').html('Submit');
+                             $('#submitbtn').attr("disabled", false);
+                             $('#submitbtn').css({ "border-radius": "4px" });
+                         }, 50000);
+                     }
+            });
+          }
+
+     });
+ });
+          
+          function checkuser() {
+              var pattern = /^[A-Z a-z 0-9]+$/;
+              var user = $('#username').val();
+              var validuser = pattern.test(user);
+              if ($('#username').val().length < 4) {
+                  $('#username_err').html('username length is too short');
+                  return false;
+              } else if (!validuser) {
+                  $('#username_err').html('username should be a-z ,A-Z only');
+                  return false;
+              } else {
+                  $('#username_err').html('');
+                  return true;
+              }
+          }
+          function checkemail() {
+    var pattern1 = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    var email = $('#email').val();
+    var validemail = pattern1.test(email);
+    if (email == "") {
+        $('#email_err').html('required field');
+        return false;
+    } else if (!validemail) {
+        $('#email_err').html('invalid email');
+        return false;
+    } else {
+        $('#email_err').html('');
+        return true;
+    }
+}
+function checkpass() {
+    console.log("sass");
+    var pattern2 = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    var pass = $('#password').val();
+    var validpass = pattern2.test(pass);
+
+    if (pass == "") {
+        $('#password_err').html('password can not be empty');
+        return false;
+    } else if (!validpass) {
+        $('#password_err').html('Minimum 5 and upto 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character:');
+        return false;
+
+    } else {
+        $('#password_err').html("");
+        return true;
+    }
+}
+function checkcpass() {
+    var pass = $('#password').val();
+    var cpass = $('#cpassword').val();
+    if (cpass == "") {
+        $('#cpassword_err').html('confirm password cannot be empty');
+        return false;
+    } else if (pass !== cpass) {
+        $('#cpassword_err').html('confirm password did not match');
+        return false;
+    } else {
+        $('#cpassword_err').html('');
+        return true;
+    }
+}
+
+function checkmobile() {
+    if (!$.isNumeric($("#phone").val())) {
+        $("#mobile_err").html("only number is allowed");
+        return false;
+    } else if ($("#phone").val().length != 10) {
+        $("#mobile_err").html("10 digit required");
+        return false;
+    }
+    else {
+        $("#mobile_err").html("");
+        return true;
+    }
+}
+function checkaddress() {
+	var address = $('#address').val();
+    
+    if (address == "") {
+         $('#address_err').html('Address can not be empty');
+     return false;}
+     else {
+        $('#address_err').html('');
+        return true;
+     }
+
+}
+const togglePassword1 = document.querySelector('#togglePassword1');
+  const password1 = document.querySelector('#password');
+  togglePassword1.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+    });
+
+  const togglePassword2=document.querySelector('#togglePassword2');
+  const password2 = document.querySelector('#cpassword');
+  togglePassword2.addEventListener('click', function (e) {
+    const type = password2.getAttribute('type') === 'password' ? 'text' : 'cpassword';
+    cpassword.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+    });
+ </script>
+
 </body>
 </html>

@@ -2,20 +2,20 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.transaction.Transaction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hibernate.Session;
-
 import com.entities.User;
 import com.helper.FactoryProvider;
-
+import com.helper.Message;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
+@MultipartConfig
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,12 +27,8 @@ public class RegisterServlet extends HttpServlet {
 			String password=request.getParameter("u_password");
 			String phone=request.getParameter("u_phone");
 			String address=request.getParameter("u_address");
-			//validation server side could be use hear like eg;
-//			if (name.isBlank()) {
-//				//cose
-//				return;
-//			}
-				
+			
+
 			//creating user object to store data
 			User user=new User(name, email, password, phone,"default.jpg", address,"normalUser");
 			
@@ -45,10 +41,7 @@ public class RegisterServlet extends HttpServlet {
 		    out.print("successfully saved");
 		    out.print(userId);
 		    HttpSession httpsession=request.getSession();
-		    httpsession.setAttribute("message", "Registration Successfully!!! your ID is:" +userId);
-		    httpsession.setAttribute("messagetype", "style=\"	color:#ff99ff ;\r\n"
-		    		+ "	background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);\"");
-		    response.sendRedirect("Register.jsp");
+		   
 		    return;
 			
 		} catch (Exception e) {
