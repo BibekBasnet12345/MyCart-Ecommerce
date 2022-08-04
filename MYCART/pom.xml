@@ -27,7 +27,6 @@
   </dependencies>
 
  <build>
-
     <finalName>MYCART</finalName>
         <plugins>
             <plugin>
