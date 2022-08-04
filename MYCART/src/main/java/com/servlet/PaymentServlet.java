@@ -1,7 +1,9 @@
 package com.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
+import com.entities.Product;
 import com.helper.Message;
 
 import jakarta.servlet.ServletException;

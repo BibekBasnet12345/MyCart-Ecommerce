@@ -208,7 +208,7 @@ left:-20%;
  padding:3.2rem 0;
  }
  .product-col-left{
- background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.3)),url("img/products/man-collection.jpg")center/cover no-repeat;
+ background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.3)),url("img/products/top6.jpg")center/cover no-repeat;
  }
   .product-col-r-top{
  background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.3)),url("img/products/womens collection.jpg")center/cover no-repeat;
@@ -354,7 +354,7 @@ left:-20%;
 <!-- collection show left col  -->
 <div class="product-col-left flex">
  <div class="product-col-content">
- <h2 class="sm-title">Women's T-shirt</h2>
+ <h2 class="sm-title">Women's Top</h2>
   <h2 class="md-title">Women's Collection</h2>
   <p class="text-p">An essay is generally a short piece of writing outliningacademic in nature and tackle serious topics.</p>
   <a type="button" class="btn-dark " href="#" style="text-decoration:none;">Shop Now</a>

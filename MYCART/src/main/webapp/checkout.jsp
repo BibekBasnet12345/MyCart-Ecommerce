@@ -195,7 +195,7 @@ width:150px;
 								
 								<div class="card  my-3  allpro"  id="payment" style="display:none; "> 
 								<div id="main" class="container mt-4 d-flex justify-content-center main allpro" >
-								   <form action="PaymentServlet">
+								   <form action="PaymentServlet" method="get">
 							             <div class="card paycard">
 							               <div class=" d-flex justify-content-between px-3 pt-4 ">
 							               <span class="pay">Pay amount</span>
@@ -232,7 +232,7 @@ width:150px;
 							         			<div>
 							         			<button type="submit" class="btn payment">Make Payment</button>
 							         			</div>
-							        
+							         			
 							         </div>
 							     
 							     </div>   </form>

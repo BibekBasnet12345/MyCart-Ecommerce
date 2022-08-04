@@ -76,6 +76,8 @@ function update_cart(){
 	let tp=`${totalPrice}`;
 	let tph=`<span id="totalpp">${totalPrice}</span>`;
 		$(".Rs").html("Rs."+tp);
+	let pid=`${item.productId}`;
+			$("#pid").html(pid);
 })
   	table=table+`
   	<tr>
